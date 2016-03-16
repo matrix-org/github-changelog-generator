@@ -28,8 +28,6 @@ import github
 
 logger = logging.getLogger()
 
-GITHUB_URL='https://github.com/'
-
 def package_json():
     """ Return the contents of package.json as a python dict """
     with open('package.json', 'r') as p:
