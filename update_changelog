@@ -79,10 +79,11 @@ def get_merged_prs(repo_object, since):
 
     # then get the PRs, and see whose head sha's are in the set.
     logger.info('Getting PR list')
-    pulls = repo_object.get_pulls(state='merged')
+    pulls = repo_object.get_pulls(state='closed')
 
     merged_pulls = (p for p in pulls 
-                    if p.head.sha in new_shas)
+                    if p.head.sha in new_shas and p.merged_at)
+
 
     return sorted(merged_pulls, key=operator.attrgetter('merged_at'))
 
@@ -192,6 +193,7 @@ if __name__ == '__main__':
     if not old_version:
         old_version=package_json()['version']
     old_tag = 'v'+old_version
+    logger.info("Comparing to old tag %s", old_tag)
 
     repo = args.repo
     if not repo:
