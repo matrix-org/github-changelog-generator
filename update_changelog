@@ -13,8 +13,8 @@
 # section of changelog is merged into the generate result.
 #
 
-
 import argparse
+import codecs
 import datetime
 import json
 import logging
@@ -111,7 +111,7 @@ def generate_changelog(repo_object, old_tag, new_version, filename, pulls):
         '',
     ))
     
-    existing_log = open(filename, 'r').readlines()
+    existing_log = codecs.open(filename, 'r', encoding='utf-8').readlines()
     lineno = 0
 
     # see if we have an 'unreleased' section, and copy it over if so
@@ -137,7 +137,7 @@ def generate_changelog(repo_object, old_tag, new_version, filename, pulls):
         width=79)
 
     for pr in pulls:
-        desc = "{0.title}\n".format(pr)
+        desc = u"{0.title}\n".format(pr)
         output.append(wrapper.fill(pr.title)+"\n")
         output.append("   [\#%s](%s)\n" % (pr.number, pr.html_url))
 
@@ -149,7 +149,7 @@ def generate_changelog(repo_object, old_tag, new_version, filename, pulls):
         output.append(line)
         lineno += 1
 
-    with open(filename, 'w') as outfile:
+    with codecs.open(filename, 'w', encoding='utf-8') as outfile:
         for l in output:
             outfile.write(l)
 
