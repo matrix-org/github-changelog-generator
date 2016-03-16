@@ -141,6 +141,14 @@ def generate_changelog(repo_object, old_tag, new_version, filename, pulls):
 
     output.append("\n")
 
+    print "New changelog section follows:"
+    print
+
+    for l in output:
+        print l,
+
+    print "------------------------------"
+
     # now copy the rest of the existing changelog
     while lineno < len(existing_log):
         line = existing_log[lineno] 
