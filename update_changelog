@@ -101,7 +101,9 @@ def generate_changelog(repo_object, old_tag, new_version, filename, pulls):
         'compare_url': compare_url,
         'date': datetime.datetime.utcnow().date().isoformat(),
     }
-    header_line = '[{version}]({version_url}) ({date})'.format(**keys)
+
+    header_line = ('Changes in [{version}]({version_url}) ({date})'
+                   .format(**keys))
     output.extend(a+"\n" for a in (
         header_line, 
         '=' * len(header_line), 
