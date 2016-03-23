@@ -83,7 +83,8 @@ def get_merged_prs(repo_object, since):
                     if p.head.sha in new_shas and p.merged_at)
 
 
-    return sorted(merged_pulls, key=operator.attrgetter('merged_at'))
+    return sorted(merged_pulls, key=operator.attrgetter('merged_at'),
+                  reverse=True)
 
 
 def generate_changelog(repo_object, old_tag, new_version, filename, pulls):
